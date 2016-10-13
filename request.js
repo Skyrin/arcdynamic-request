@@ -84,6 +84,7 @@ var cacheRequest = (function(){
 
 	return function(url, request, opts, callback) {
 		opts = opts || {};
+		callback = callback || function(){};
 
 		if (opts.expires) {
 			var key = JSON.stringify(request);
