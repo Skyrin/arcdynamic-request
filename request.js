@@ -12,7 +12,7 @@ var sendRequests = (function(){
 
 		xhr.onload = function(e) {
 			try {
-				var res = JSON.parse(e.target.response);
+				var res = JSON.parse(xhr.responseText);
 				var responses = res && res.responses && Array.isArray(res.responses) ? res.responses : [];
 
 				queue.forEach(function(el, i) {
