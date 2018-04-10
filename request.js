@@ -59,22 +59,26 @@ var sendRequests = (function(){
 }());
 
 var queueRequest = (function(){
-	var queue = [];
 	var timeouts = {};
+	var queues = {};
 
 	return function (url, request, callback) {
 		if (timeouts[url]) {
 			clearTimeout(timeouts[url]);
 		}
 
-		queue.push({
+		if (!queues[url]) {
+			queues[url] = [];
+		}
+
+		queues[url].push({
 			request: request,
 			callback: callback,
 		});
 
 		timeouts[url] = setTimeout(function() {
-			sendRequests(url, queue, 1);
-			queue = [];
+			sendRequests(url, queues[url], 1);
+			queues[url] = [];
 		}, 5);
 	};
 }());
