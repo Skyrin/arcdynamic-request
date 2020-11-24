@@ -44,6 +44,10 @@ var sendRequests = (function(){
 		};
 		xhr.open('POST', url);
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+		if(window && window._env && window._env.arcClientCode && window._env.arcDomainKey) {
+			xhr.setRequestHeader('X-ARC-CLIENT-CODE', window._env.arcClientCode);
+			xhr.setRequestHeader('X-ARC-DOMAIN-KEY', window._env.arcDomainKey);
+		}
 		xhr.withCredentials = true;
 		xhr.send(queryStringify({
 			format: 'json',
